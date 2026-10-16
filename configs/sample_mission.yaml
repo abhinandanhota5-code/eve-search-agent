@@ -1,0 +1,68 @@
+# EVE Search Agent - sample mission "Long-Range Rescue"
+# A validated mission configuration. Everything under `eve` is hidden ground
+# truth consumed only by the simulator; the agent sees the mission briefing
+# (initial signal + physics) and its own observations, never `eve`.
+mission:
+  id: sample-long-range-rescue
+  description: >-
+    Post-cataclysm sweep: WALL-E must re-acquire EVE's transponder, triangulate
+    her position from noisy signal fragments and field clues, and conserve
+    battery for the return leg. Coordinates were scrubbed from the distress
+    signal; only a bearing fragment and strength reference remain.
+  confidence_threshold: 0.12   # posterior mass needed to declare "probable contact"
+
+world:
+  width: 26
+  height: 20
+  seed: 42
+  obstacle_density: 0.10
+  hazard_density: 0.04
+  # Explicit placements may replace seeded generation, e.g.:
+  # obstacles: [[8, 3], [9, 3], [10, 4]]
+  # recharge_stations: [[1, 1], [13, 9], [23, 17]]
+
+walle:
+  start: [2, 2]
+  orientation: E
+
+signal:
+  initial:
+    # coordinates/bearing/strength omitted: the simulator generates a
+    # truthful noisy fragment (bearing + strength) from hidden ground truth
+    timestamp: "2805-11-02T09:14:00Z"
+  propagation:
+    reference_strength: 100.0
+    decay_length: 9.0
+    noise_sigma: 7.0
+    bearing_noise_deg: 12.0
+
+resources:
+  battery_capacity: 100.0
+  initial_battery: 100.0
+  mission_time: 340.0
+
+costs:
+  move_battery: 1.2
+  move_time: 1.5
+  rotate_battery: 0.1
+  rotate_time: 0.5
+  scan_battery: 3.0
+  scan_time: 4.0
+  signal_ping_battery: 0.5
+  signal_ping_time: 0.5
+  wait_time: 1.0
+  recharge_battery_gain: 22.0
+  recharge_time: 6.0
+  blocked_move_penalty_time: 0.5
+
+evidence:
+  clue_count: 6
+  clue_spread: 10.0
+  scan_radius: 3
+  scan_collection_radius: 1
+  seed: 1337
+
+eve:
+  # HIDDEN simulator data - never surfaced to the agent
+  status: standby
+  # position omitted: derived reproducibly from the world seed

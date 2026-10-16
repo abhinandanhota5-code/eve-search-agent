@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "eve-search-agent"
+version = "0.1.0"
+description = "EVE Search Agent - an autonomous exploration and decision-making system (WALL-E searching for EVE)"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.5",
+    "PyYAML>=6.0",
+    "numpy>=1.26",
+    "Flask>=3.0",
+]
+
+[project.optional-dependencies]
+viz = ["matplotlib>=3.8"]
+dev = ["pytest>=7.4", "matplotlib>=3.8", "Flask>=3.0"]
+
+[project.scripts]
+eve-search = "eve_search.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

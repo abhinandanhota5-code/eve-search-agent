@@ -1,0 +1,38 @@
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+*.venv/
+
+# Python caches and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Environment variables and secrets
+.env
+.env.*
+*.env
+*.pem
+*.key
+*.cert
+*.pfx
+*secret*
+
+# Outputs
+outputs/*
+!outputs/.gitkeep
+
+# Temporary and backup files
+*.bak
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
